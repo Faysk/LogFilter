@@ -15,7 +15,7 @@ while ($testConnectionServer) {
     $totalCount = (Get-ChildItem -Path $logPath -Filter *.log | Get-Content | Measure-Object -Line).Sum
 
     # Cria uma string contendo as informações de contagem de logs, incluindo a contagem total de linhas
-    $logInfo = "Quantidade de informativos: $infoCount`nQuantidade de erros: $errorCount`nQuantidade de avisos: $warningCount`nQuantidade total: $totalCount"
+    $totalCount = (Get-ChildItem -Path $logPath -Filter *.log | ForEach-Object {Get-Content $_.FullName | Measure-Object -Line}).Lines | Measure-Object -Sum | Select-Object -ExpandProperty Sum
 
     # Exibe as informações de contagem de logs, incluindo a contagem total de linhas
     Write-Output $logInfo
